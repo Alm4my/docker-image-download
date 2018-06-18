@@ -1,0 +1,60 @@
+#############################
+## DOCKER QUICK REFERENCES ##
+#############################
+
+# START A CONTAINER
+docker start $CONTAINER_ID
+
+# DETACHING A CONTAINER SEQUENCE
+ctrl-p + ctrl-q
+
+# SEE IMAGES
+docker images 
+
+# SEE RUNNING AND NON-RUNNING CONTAINERS
+docker ps -a
+
+# SEE EXPOSED PORTS
+docker ports $CONTAINER_NAME
+
+# GET AN IMAGE
+## $VERSION can be "latest" or specific version "12.04"
+docker pull $IMAGE:$VERSION 
+
+# ADD AN INTERACTIVE TTY TO A CONTAINER
+docker run -it $IMAGE 
+
+# DELETE CONTAINER; DELETE CONTAINER WITH EXITED STATUS 
+docker rm $ID
+docker rm $(docker ps -a -q -f status=exited)
+
+# DELETE AN IMAGE
+docker rmi $IMAGE
+
+# RUN AND DELETE A CONTAINER UPON EXITING IT
+docker run -it --rm $IMAGE
+
+# RUN A CONTAINER IN DETACHED MODE AND SHOW ITS EXPOSED PORTS
+docker -d -P --name $CONTAINER_NAME $IMAGE
+
+# SPECIFY CUSTOM PORT | -p MAPS PORT 80 IN THE CONTAINER TO PORT 8888 ON THE HOST
+docker run -p 8888:80 $IMAGE 
+
+# STOP DETACHED CONTAINER
+docker stop $ID
+
+# SEE LIST OF NETWORKS
+docker network ls
+
+# CREATE A NETWORK
+docker network create $NET_NAME
+
+# RUN A CONTAINER WITH A SPECIFIC NETWORK
+docker run -it --rm --net $NET_NAME $IMAGE $COMMAND
+
+# RUN A COMMAND IN A RUNNING CONTAINER
+docker exec -i $ID $COMMAND 
+
+# GET A TERMINAL ON AN ALREADY RUNNING CONTAINER
+docker exec -it CONTAINER_ID bash
+
